@@ -9,7 +9,7 @@ class GLWidget(QOpenGLWidget):
         super().__init__(parent)
         self.points = []
         self.rotation_x = 30
-        self.rotation_y = 30
+        self.rotation_y = -30
         self.last_pos = None
         self.scaler = 0.5
 

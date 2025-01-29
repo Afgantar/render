@@ -9,7 +9,7 @@ class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
         self.setWindowTitle("3D Point Renderer")
-        self.setGeometry(100, 100, 1000, 800)  # Larger window size
+        self.setGeometry(100, 100, 1280, 720)  # Larger window size
 
         # Central widget
         self.central_widget = QWidget()
@@ -23,11 +23,19 @@ class MainWindow(QMainWindow):
         self.left_panel.setMaximumWidth(300)  # Limit the width of the input panel
         self.left_layout = QVBoxLayout(self.left_panel)
 
+        # Points container
+        self.point_container = QWidget()
+        self.point_container.setMaximumWidth(300)
+        self.container_layout = QVBoxLayout(self.point_container)
+
         # Input fields for XYZ
         self.x_input = QLineEdit(self)
         self.y_input = QLineEdit(self)
         self.z_input = QLineEdit(self)
         self.add_point_button = QPushButton("Add Point", self)
+
+        # Point container title
+        self.container_layout.addWidget(QLabel("Points:"))
 
         # Add input fields and button to the left layout
         self.left_layout.addWidget(QLabel("X:"))
@@ -37,6 +45,7 @@ class MainWindow(QMainWindow):
         self.left_layout.addWidget(QLabel("Z:"))
         self.left_layout.addWidget(self.z_input)
         self.left_layout.addWidget(self.add_point_button)
+        self.left_layout.addWidget(self.point_container)
         self.left_layout.addStretch()  # Add stretch to push fields to the top
 
         # OpenGL widget for rendering
@@ -64,7 +73,7 @@ class MainWindow(QMainWindow):
             z = float(self.z_input.text())
             self.points.append((x, y, z))
             self.gl_widget.update_points(self.points)
-            self.left_layout.addWidget(QLabel(f"{x}, {y}, {z}"))
+            self.container_layout.addWidget(QLabel(f"{x}, {y}, {z}"))
         except ValueError:
             print("Invalid input")
 
